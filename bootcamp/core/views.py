@@ -15,7 +15,7 @@ from bootcamp.feeds.views import feeds
 
 
 def home(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return feeds(request)
     else:
         return render(request, 'core/cover.html')
@@ -77,7 +77,7 @@ def picture(request):
     try:
         if request.GET.get('upload_picture') == 'uploaded':
             uploaded_picture = True
-    except Exception, e:
+    except Exception:
         pass
     return render(request, 'core/picture.html', {'uploaded_picture': uploaded_picture})
 
@@ -115,8 +115,8 @@ def upload_picture(request):
             im.thumbnail(new_size, Image.ANTIALIAS)
             im.save(filename)
         return redirect('/settings/picture/?upload_picture=uploaded')
-    except Exception, e:
-        print e
+    except Exception:
+        # print e
         return redirect('/settings/picture/')
 
 @login_required
@@ -133,6 +133,6 @@ def save_uploaded_picture(request):
         cropped_im.thumbnail((200, 200), Image.ANTIALIAS)
         cropped_im.save(filename)
         os.remove(tmp_filename)
-    except Exception, e:
+    except Exception:
         pass
     return redirect('/settings/picture/')

@@ -20,7 +20,14 @@ DATABASES = {
     'default': dj_database_url.config(
       default = config('DATABASE_URL'))
 }
+import os
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_DIR, 'db.sqlite3'),
+    }
+}
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -43,15 +50,15 @@ INSTALLED_APPS = (
     'bootcamp.search',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'bootcamp.urls'
 
@@ -91,9 +98,25 @@ STATICFILES_DIRS = (
 MEDIA_ROOT = PROJECT_DIR.parent.child('media')
 MEDIA_URL = '/media/'
 
-TEMPLATE_DIRS = (
-    PROJECT_DIR.child('templates'),
-)
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            PROJECT_DIR.child('templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/feeds/'
@@ -101,4 +124,4 @@ LOGIN_REDIRECT_URL = '/feeds/'
 ALLOWED_SIGNUP_DOMAINS = ['*']
 
 FILE_UPLOAD_TEMP_DIR = '/tmp/'
-FILE_UPLOAD_PERMISSIONS = 0644
+FILE_UPLOAD_PERMISSIONS = 644

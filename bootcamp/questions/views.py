@@ -100,7 +100,7 @@ def accept(request):
     user = request.user
     try:
         user.profile.unotify_accepted(answer.question.get_accepted_answer()) # answer.accept cleans previous accepted answer
-    except Exception, e:
+    except Exception:
         pass
     if answer.question.user == user:
         answer.accept()

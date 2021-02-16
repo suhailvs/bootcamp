@@ -7,7 +7,7 @@ from bootcamp.activities.models import Notification
 import urllib, hashlib
 
 class Profile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=50, null=True, blank=True)
     url = models.CharField(max_length=50, null=True, blank=True)
     job_title = models.CharField(max_length=50, null=True, blank=True)
@@ -36,7 +36,7 @@ class Profile(models.Model):
                     urllib.urlencode({'d':no_picture, 's':'256'})
                     )
                 return gravatar_url
-        except Exception, e:
+        except Exception:
             return no_picture
 
     def get_screen_name(self):

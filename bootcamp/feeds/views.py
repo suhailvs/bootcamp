@@ -181,5 +181,5 @@ def remove(request):
             return HttpResponse()
         else:
             return HttpResponseForbidden()
-    except Exception, e:
+    except Exception:
         return HttpResponseBadRequest()

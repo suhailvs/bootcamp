@@ -101,7 +101,7 @@ def preview(request):
             return HttpResponse(html)
         else:
             return HttpResponseBadRequest()
-    except Exception, e:
+    except Exception:
         return HttpResponseBadRequest()
 
 @login_required
@@ -122,5 +122,5 @@ def comment(request):
             return HttpResponse(html)
         else:
             return HttpResponseBadRequest()
-    except Exception, e:
+    except Exception:
         return HttpResponseBadRequest()

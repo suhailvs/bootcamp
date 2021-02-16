@@ -3,14 +3,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from bootcamp.activities.models import Activity
 from django.utils.html import escape
-import bleach
+#import bleach
 
 
 class Feed(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     post = models.TextField(max_length=255)
-    parent = models.ForeignKey('Feed', null=True, blank=True)
+    parent = models.ForeignKey('Feed', null=True, blank=True, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     comments = models.IntegerField(default=0)
 
@@ -68,4 +68,4 @@ class Feed(models.Model):
         return feed_comment
 
     def linkfy_post(self):
-        return bleach.linkify(escape(self.post))
+        return '' #bleach.linkify(escape(self.post))

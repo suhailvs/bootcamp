@@ -4,7 +4,7 @@ from bootcamp.activities.models import Activity
 import markdown
 
 class Question(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.TextField(max_length=2000)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -73,8 +73,8 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User)
-    question = models.ForeignKey(Question)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     description = models.TextField(max_length=2000)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(null=True, blank=True)
@@ -126,7 +126,7 @@ class Answer(models.Model):
 
 class Tag(models.Model):
     tag = models.CharField(max_length=50)
-    question = models.ForeignKey(Question)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Tag'

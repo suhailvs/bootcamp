@@ -16,7 +16,7 @@ def search(request):
             search_type = request.GET.get('type')
             if search_type not in ['feed', 'articles', 'questions', 'users']:
                 search_type = 'feed'
-        except Exception, e:
+        except Exception:
             search_type = 'feed'
         
         count = {}
